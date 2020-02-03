@@ -6,12 +6,15 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "start": "node server.js",
     "build": "node build/build.js"
   },
   "dependencies": {
     "aos": "^3.0.0-beta.6",
+    "express": "^4.17.1",
     "firebase": "^7.8.0",
+    "path": "^0.12.7",
+    "serve-static": "^1.14.1",
     "superhero-name-library": "^1.2.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
