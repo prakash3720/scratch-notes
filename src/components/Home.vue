@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <img src="../assets/logo.png" alt="logo" width="85">
     <div class="form" data-aos="fade" data-aos-duration="1000">
       <input type="text" name="Title" placeholder="Title" autocomplete="off" v-model="title">
       <textarea name="content" rows="7" placeholder="Take a Note..." v-model="content"></textarea>
@@ -389,5 +390,11 @@ textarea{
   .overlay{
     width: 310px;
   }
+}
+.home img{
+  position: relative;
+  left: 50%;
+  transform: translate(-50%,0);
+  margin-bottom: 15px;
 }
 </style>
