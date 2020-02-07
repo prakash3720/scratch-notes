@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <img src="../../static/lock.png" alt="logo" width="35" id="lock" @click.prevent="lock">
     <img src="../assets/logo.png" alt="logo" width="85">
     <div class="form" data-aos="fade" data-aos-duration="1000">
       <input type="text" name="Title" placeholder="Title" autocomplete="off" v-model="title">
@@ -37,6 +38,18 @@
         </div>
       </div>
     </div>
+    <div class="modal" id="lockmodal">
+      <div class="overlay">
+        <span @click.prevent="lockmodaltoggle">X</span>
+        <input type="password" name="Password" placeholder="Password" autocomplete="off" v-model="pass">
+        <p v-if="passFeed">{{passFeed}}</p>
+        <PulseLoader :size="size" id="passpins"/>
+        <div id="sharediv">
+          <button id="modalbutton5" @click.prevent="setpass">Set</button>
+          <button id="modalbutton6" @click.prevent="rempass">Remove</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -63,7 +76,9 @@ export default {
       modaltitle:null,
       modalcontent:null,
       shareid:null,
-      shareFeed:null
+      shareFeed:null,
+      pass:null,
+      passFeed:null
     }
   },
   methods:{
@@ -193,6 +208,62 @@ export default {
         document.getElementById("modalbutton3").classList.toggle("hide")
         document.getElementById("modal").classList.toggle("hide")
       })
+    },
+    lock(){
+      document.getElementById("lockmodal").classList.toggle("hide")
+      this.pass=null
+      this.passFeed=null
+    },
+    lockmodaltoggle(){
+      document.getElementById("lockmodal").classList.toggle("hide")
+    },
+    setpass(){
+      if(this.pass){
+        this.passFeed=null
+        document.getElementById("passpins").classList.remove("hide")
+        var db = firedb.firestore()
+        db.collection("users").doc(this.id).get().then((doc)=>{
+          if(!doc.exists){
+            db.collection("users").doc(this.id).set({password:this.pass})
+            .then(()=>{
+              this.passFeed="Password Set!"
+              this.pass=null
+              document.getElementById("passpins").classList.add("hide")
+            })
+          }else{
+            db.collection("users").doc(this.id).update({
+              password:this.pass
+            })
+            .then(()=>{
+              this.passFeed="Password Set!"
+              this.pass=null
+              document.getElementById("passpins").classList.add("hide")
+            })
+          }
+        })
+      }else{
+        this.passFeed="Enter Password"
+      }
+    },
+    rempass(){
+      this.passFeed=null
+      document.getElementById("passpins").classList.remove("hide")
+      this.pass=null
+      var db = firedb.firestore()
+      db.collection("users").doc(this.id).get().then((doc)=>{
+        if(!doc.exists){
+          this.passFeed="Doc. does not exist"
+          document.getElementById("passpins").classList.add("hide")
+        }else{
+          db.collection("users").doc(this.id).update({
+            password:this.pass
+          })
+          .then(()=>{
+            this.passFeed="Password Removed!"
+            document.getElementById("passpins").classList.add("hide")
+          })
+        }
+      })
     }
   },
   created(){
@@ -207,12 +278,22 @@ export default {
     document.getElementById("modal").classList.add("hide")
     document.getElementById("sharemodal").classList.add("hide")
     document.getElementById("modalspins").classList.add("hide")
+    document.getElementById("lockmodal").classList.add("hide")
+    document.getElementById("passpins").classList.add("hide")
   }
 }
 </script>
 
 <style scoped>
+#lock{
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(50%,50%);
+  cursor: pointer;
+}
 .home{
+  position: relative;
   min-height: 100vh;
   background-color: #edf7fa;
   padding: 50px 50px!important;
@@ -325,6 +406,25 @@ textarea{
 #sharemodal input{
   margin-bottom: 0;
   font-size: 1.2rem;
+}
+#lockmodal .overlay{
+  height: 110px;
+  width: 310px;
+}
+#lockmodal input{
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+#sharediv{
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+#lockmodal .overlay div button{
+  margin: 0 3px;
 }
 .overlay{
   position: relative;
