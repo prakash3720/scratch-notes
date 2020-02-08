@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img src="../../static/lock.png" alt="logo" width="35" id="lock" @click.prevent="lock">
+    <img src="../../static/lock.png" alt="logo" width="40" id="lock" @click.prevent="lock">
     <img src="../assets/logo.png" alt="logo" width="85">
     <div class="form" data-aos="fade" data-aos-duration="1000">
       <input type="text" name="Title" placeholder="Title" autocomplete="off" v-model="title">
