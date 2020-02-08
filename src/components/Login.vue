@@ -1,7 +1,7 @@
 <template>
 <div class="login">
 	<label for="password">Password</label>
-	<input type="password">
+	<input type="password" v-model="pass">
 	<p v-if="feedback">{{feedback}}</p>
 	<button @click.prevent="login">Login</button>
 </div>
