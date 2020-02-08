@@ -289,7 +289,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  transform: translate(50%,50%);
+  transform: translate(40%,40%);
   cursor: pointer;
 }
 .home{

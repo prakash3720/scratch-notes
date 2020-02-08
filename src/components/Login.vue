@@ -1,9 +1,11 @@
 <template>
 <div class="login">
-	<label for="password">Password</label>
-	<input type="password" v-model="pass">
-	<p v-if="feedback">{{feedback}}</p>
-	<button @click.prevent="login">Login</button>
+	<img src="../assets/logo.png" alt="logo" width="85">
+	<form @submit.prevent="login">
+		<input type="password" placeholder="Password" v-model="pass">
+		<p v-if="feedback">{{feedback}}</p>
+		<button type="submit" @click.prevent="login">Login</button>
+	</form>
 </div>
 </template>
 
@@ -44,12 +46,13 @@ export default {
 </script>
 
 <style scoped>
-.login{
+.login form{
 	height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	background-color: #edf7fa;
 }
 input{
 	width: 280px;
@@ -58,11 +61,8 @@ input{
 	border-color: #41b175;
 	padding: 5px;
 	outline: none;
-}
-label{
-	font-size: 1.5em;
-	color: #41b175;
-	margin-bottom: 10px;
+	font-size: 1.1em;
+	text-align: center;
 }
 p{
     text-align: center;
@@ -72,7 +72,7 @@ p{
 }
 button{
 	cursor: pointer;
-	margin-top: 10px;
+	margin-top: 15px;
 	padding: 5px;
 	font-size: 1.1em;
 	background-color: #41b175;
@@ -84,5 +84,11 @@ button{
 }
 button:hover{
 	box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+}
+img{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	padding-top: 50px;
 }
 </style>
