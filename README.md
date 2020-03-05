@@ -1,6 +1,6 @@
 # scratch-notes
 
-> A Note Sharing Website
+> A Note Sharing Website that allows to create dynamic links for creating and sharing of notes.
 
 ## Build Setup
 
