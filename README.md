@@ -1,6 +1,6 @@
 # scratch-notes
 
-> A Note Sharing Website that allows to create dynamic links for creating and sharing of notes.
+> An online note sharing website, developed using Vue.js and Firebase. The Website allows the user to create dynamic URLs that can be used to create and share multiple notes with the other users.
 
 # Screenshots
 
